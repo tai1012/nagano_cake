@@ -1,0 +1,18 @@
+<!--ジャンル検索　部分テンプレート-->
+<h2>商品一覧(全x件)</h2>
+<% @items.each do |item|%>
+<table>
+  <tr>
+    <td>
+      <%= attachment_image_tag @admin, :image, :fill, 250, 200, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'150x100' %>
+    </td>
+    <td>
+      <%= item.name %>
+    </td>
+    <td>
+      <%= item.price%>円
+    </td>
+  </tr>
+</table>
+<% end %>
+<!--ページネーション-->

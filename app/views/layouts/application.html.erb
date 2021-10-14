@@ -11,38 +11,55 @@
 
   <body>
     <header>
-      logo[nagano cake] navbar[login前　about 商品一覧 新規登録 ログイン] 
-                       
-                       
-                        会員 
-                        navbar[login後]
-                        権限者 navbar[login後]
-                        
-                        検索窓
+        <% if customer_signed_in? %>
+        <li>
+            <%= link_to "マイページ" %>
+        </li>
+        <li>
+            <%= link_to "商品一覧", items_path %>
+        </li>
+        <li>
+            <%= link_to "カート" %>
+        </li>
+        <li>
+            <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+        </li>
+        <% elsif admin_signed_in? %>
+        <li>
+            <%= link_to "商品一覧", admins_items_path %>
+        </li>
+        <li>
+            <%= link_to "会員一覧", admins_customers_path%>
+        </li>
+        <li>
+            <%=link_to "注文履歴一覧", admins_path%>
+        </li>
+        <li>
+            <%= link_to "ジャンル一覧", admins_genres_path %>
+        </li>
+        <li>
+            <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+         </li>
+        <% else %>
+        <li>
+            <%= link_to "About", about_path %>
+        </li>
+        <li>
+            <%= link_to "商品一覧", items_path %>
+        </li>
+        <li>
+            <%= link_to "新規登録", new_customer_registration_path %>
+        </li>
+        <li>
+            <%= link_to "ログイン", new_customer_session_path %>
+        </li>
+        <% end %>
     </header>
-    
-    <main>
-      
-      <% if customer_signed_in? %>
-       <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-       </li>
-      <% elsif admin_signed_in? %>
-       <li>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-       </li>
-      <% else %>
-       <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-       </li>
-       <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-       </li>
-      <% end %>
 
+    <main>
       <%= yield %>
     </main>
-    
+
     <footer>
       <p>CopyRight Infratop.inc</p>
     </footer>

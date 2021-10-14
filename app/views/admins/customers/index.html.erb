@@ -1,1 +1,26 @@
 <h2>会員一覧</h2>
+<table>
+  <thead>
+    <tr>
+      <td>会員ID</td>
+      <td>氏名</td>
+      <td>メールアドレス</td>
+      <td>ステータス</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+    <tr>
+      <td><%= customer.id %></td>
+      <td>
+        <%= link_to admins_customer_path(customer) do %>
+        <%= customer.first_name %><%= customer.last_name %>
+        <% end %>
+      </td>
+      <td><%= customer.email %></td>
+      <td><%= customer.is_active ? '有効':'無効' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<!--ページネーション-->

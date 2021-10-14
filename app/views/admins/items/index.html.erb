@@ -1,17 +1,27 @@
 <h2>商品一覧</h2>
-<tag class="add_items">
+<div class="add_items">
+  <%= link_to"＋", new_admins_item_path %>
+</div>
 <table>
-  <th>商品ID</th>
-  <th>商品名</th>
-  <th>税抜価格</th>
-  <th>ジャンル</th>
-  <th>ステータス</th>　<!--０:販売中 1:販売停止中-->
-  
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+  <thead>
+    <tr>
+      <td>商品ID</td>
+      <td>商品名</td>
+      <td>税抜価格</td>
+      <td>ジャンル</td>
+      <td>ステータス</td>　<!--０:販売中 1:販売停止中-->
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.id %></td>
+      <td><%= link_to item.name, admins_item_path(item) %></td>
+      <td><%= item.price %>円</td>
+      <td><%= item.genre.name %></td>
+      <td><%= item.is_active ? '販売中':'販売停止中' %></td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
-
 <!--ページネーション-->
