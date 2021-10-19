@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  
 
   protected
   def configure_permitted_parameters
@@ -13,7 +14,7 @@ class ApplicationController < ActionController::Base
     # end
     
     if customer_signed_in?
-      root_path
+      items_path
       #後で変更
     elsif admin_signed_in?
       admins_path

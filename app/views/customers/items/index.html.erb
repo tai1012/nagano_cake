@@ -4,14 +4,16 @@
 <table>
   <tr>
     <td>
-      <%= attachment_image_tag @admin, :image, :fill, 250, 200, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'150x100' %>
+      <%= link_to item_path(item) do %>
+      <%= attachment_image_tag item, :image, :fill, 250, 200, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'150x100' %>
     </td>
     <td>
-      <%= item.name %>
+      <%= link_to item.name, item_path(item) %>
     </td>
     <td>
-      <%= item.price%>円
+      ¥<%= item.price.floor %>
     </td>
+      <% end %>
   </tr>
 </table>
 <% end %>

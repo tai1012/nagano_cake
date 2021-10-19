@@ -1,17 +1,19 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: "customers/homes#top"
+  get "/about" => "customers/homes#about"
+  resources :homes, only:[:top, :about]
+  
   devise_for :customers, controllers: {
     sessions:      'customers/sessions',
     passwords:     'customers/passwords',
     registrations: 'customers/registrations'
   }
+  # post "/customers/sign_up" => "customers/registrations#create"
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords'
   }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "customers/homes#top"
-  get "/about" => "customers/homes#about"
-  resources :homes, only:[:top, :about]
 
   scope module: "customers" do
     resources :items, only:[:index, :show]
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
     get "customers/my_page" => "/customers/customers#show"
     get "customers/unsubscribe" => "/customers/customers#unsubscribe"
     patch "customers/withdraw" => "/customers/customers#withdraw"
-    resources :cart_items, only:[:index, :update, :destroy, :destroy_all, :create]
+    resources :cart_items, only:[:index, :update, :destroy, :create]
     delete "cart_items/destroy_all" => "/customers/cart_items#destroy_all"#destroy_allはコントローラー？
     resources :orders, only:[:new, :index, :show, :create]
     post "orders/confirm" => "/customers/orders#confirm"

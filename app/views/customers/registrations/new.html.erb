@@ -1,6 +1,6 @@
 <h2>新規会員登録</h2>
 
-<%= form_with model:@customers, local:true do |f| %>
+<%= form_with model:resource, local:true do |f| %>
   <%= render "customers/shared/error_messages", resource: resource %>
   <div class="field">
     <div>

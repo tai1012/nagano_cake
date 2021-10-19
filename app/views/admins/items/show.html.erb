@@ -1,5 +1,5 @@
 <h2>商品詳細</h2>
-<div class="image"><%= attachment_image_tag @admin, :image, :fill, 250, 200, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'250x200' %></div>
+<div class="image"><%= attachment_image_tag @item, :image, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'250x200' %></div>
 <div class="form-group">
   <label>商品名</label>
   <div><%= @item.name %></div>

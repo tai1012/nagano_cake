@@ -1,7 +1,7 @@
 <h2>ログイン</h2>
 <section>
   <h3>会員の方はこちらからログイン</h3>
-  <%= form_with model:@customers, local:true do |f| %>
+  <%= form_with model:resource, url: session_path(resource_name), local:true do |f| %>
     <div class="field">
       <%= f.label :email, "メールアドレス" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
