@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     post "orders/confirm" => "/customers/orders#confirm"
     get "orders/complete" => "/customers/orders#complete"
     resources :orders, only:[:new, :index, :show, :create]
-    resources :addresses, only:[:index, :edit, :create, :update, :destroy]
+    resources :addresses, only:[:index, :create, :edit, :update, :destroy]
   end
 
   get "/admins" => "admins/homes#top" #注文履歴全体の
