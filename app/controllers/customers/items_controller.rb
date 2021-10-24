@@ -7,8 +7,7 @@ class Customers::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if current_customer.present?
       items = current_customer.cart_items
-      # CartItemモデルに対して親がUserとProductでそれぞれの親にアソシエーションはないのでこの記述
-      # 中間モデルでもう少しシンプルにかけると思われる
+      
       if items.find_by(item_id: @item.id).present?
         @cart_item = items.find_by(item_id: @item.id)
       else
