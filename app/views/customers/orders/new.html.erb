@@ -5,12 +5,12 @@
   <h3>支払方法</h3>
   <div>
     <div>
-      <%= f.radio_button :payment_method, "credit_card", checked:true %>
-      <%= f.label "クレジットカード" %>
+      <%= f.radio_button :payment_method,  Order.payment_methods.key(0), checked:true %>
+      <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card] %>
     </div>
     <div>
-      <%= f.radio_button :payment_method, "transfer" %>
-      <%= f.label "銀行振込" %>
+      <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+      <%= f.label :payment_method, Order.payment_methods_i18n[:transfer] %>
     </div>
   </div>
 
@@ -22,13 +22,13 @@
       〒<%= current_customer.postal_code %> <%= current_customer.address%><br/>
       <%= current_customer.first_name %><%= current_customer.last_name%>
     </div>
-    
+
     <div>
       <%= radio_button_tag :delivery_type, 1 %>
       <%= f.label "登録済み住所から選択" %><br/>
       <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :full_address) %>
     </div>
-    
+
     <div>
       <%= radio_button_tag :delivery_type, 2 %>
       <%= f.label "新しいお届け先" %><br/>
@@ -54,7 +54,7 @@
           </tr>
         </tbody>
       </table>
-      
+
     </div>
   </div>
   <%= f.submit "確認画面へ進む"%>

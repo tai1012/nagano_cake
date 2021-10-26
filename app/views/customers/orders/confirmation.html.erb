@@ -23,12 +23,12 @@
         <%= cart_item.amount %>
       </td>
     </tr>
-  </tbody>    
+  </tbody>
 </table>
 <div>
   <div>
     <h3>支払方法</h3>
-    <div><%= @order.payment_method %></div>
+    <div><%= @orderpayment_method %></div>
   </div>
   <div>
     <h3>お届け先</h3>
@@ -39,9 +39,9 @@
     </div>
   </div>
 </div>
-      
+
   <td>
     <%= (cart_item.item.taxed_price * cart_item.amount).to_s(:delimited) %>
   </td>
-  
+
     <% end %>

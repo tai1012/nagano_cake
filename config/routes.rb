@@ -4,17 +4,6 @@ Rails.application.routes.draw do
   get "/about" => "customers/homes#about"
   resources :homes, only:[:top, :about]
 
-  devise_for :customers, controllers: {
-    sessions:      'customers/sessions',
-    passwords:     'customers/passwords',
-    registrations: 'customers/registrations'
-  }
-  # post "/customers/sign_up" => "customers/registrations#create"
-  devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords'
-  }
-
   scope module: "customers" do
     resources :items, only:[:index, :show]
     resource :customers, only:[:edit, :update]
@@ -27,6 +16,7 @@ Rails.application.routes.draw do
     post "orders/confirm" => "/customers/orders#confirm"
     get "orders/complete" => "/customers/orders#complete"
     resources :orders, only:[:new, :index, :show, :create]
+    # post "orders" => "/customers/orders#create"
     resources :addresses, only:[:index, :create, :edit, :update, :destroy]
   end
 
@@ -38,5 +28,15 @@ Rails.application.routes.draw do
     resources :orders, only:[:index, :show, :update]
     resources :order_details, only:[:update]
   end
-
+  
+  devise_for :customers, controllers: {
+    sessions:      'customers/sessions',
+    passwords:     'customers/passwords',
+    registrations: 'customers/registrations'
+  }
+  # post "/customers/sign_up" => "customers/registrations#create"
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords'
+  }
 end

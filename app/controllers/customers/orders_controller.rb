@@ -6,23 +6,56 @@ class Customers::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-    @address = Address.find(params[:order][:address_id])
-    @order.postal_code = @address.postal_code
-    @order.address = @address.address
-    @order.name = @address.name
-    redirect_to orders_confiramation_path
+    case params[:delivary_type]
+    when "0" then
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.first_name + current_customer.last_name
+    when "1" then 
+      @address = Address.find(params[:order][:select_address])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    else 
+      current_user.addresses.create!(
+        postal_code: @order.postal_code,
+        address: @order.address,
+        name: @order.name
+      )
+    end
+    @order.save
+    redirect_to orders_confiramation_path(@order)
   end
 
   def confirmation
     @cart_items = current_customer.cart_items
-    @order = current_customer.orders
-  end
-
-  def complete
+    @order = Order.find(params[:id])
   end
 
   def create
+    @order = Order.new(order_params)
+    case params[:delivary_type]
+    when "0" then
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.first_name + current_customer.last_name
+    when "1" then 
+      @address = Address.find(params[:order][:select_address])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    else 
+      current_customer.addresses.create!(
+        postal_code: @order.postal_code,
+        address: @order.address,
+        name: @order.name
+      )
+    end
+    @order.save
+    redirect_to orders_confirmation_path(@order)
+  end
 
+  def complete
   end
 
   def index
