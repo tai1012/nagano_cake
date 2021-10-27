@@ -1,6 +1,6 @@
 <h2>注文情報入力</h2>
 
-<%= form_with model: @order, local:true do |f| %>
+<%= form_with model: @order, url: orders_confirm_path, local:true do |f| %>
 <div>
   <h3>支払方法</h3>
   <div>
@@ -26,7 +26,8 @@
     <div>
       <%= radio_button_tag :delivery_type, 1 %>
       <%= f.label "登録済み住所から選択" %><br/>
-      <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :full_address) %>
+      <%= f.select :select_address, options_from_collection_for_select(current_customer.addresses, :id, :full_address) %>
+      <!--< %= f.hidden_field :address_id, :value => @order.id %>-->
     </div>
 
     <div>
