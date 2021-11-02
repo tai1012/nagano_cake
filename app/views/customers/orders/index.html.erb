@@ -11,25 +11,40 @@
         </tr>
     </thead>
     <tbody>
+        <% @orders.each do |order| %>
         <tr>
             <td>
-
+              <%= order.created_at.strftime("%Y/%m/%d") %>
             </td>
             <td>
-
-
-
+              〒<%= order.postal_code %>
+              <%= order.address %>
+              <%= order.name %>
             </td>
             <td>
-
+              <% order.order_details.each do |order_detail| %>
+                <%= order_detail.item.name %><br>
+              <% end %>
+              <!--< %= order.item.name %>-->
             </td>
             <td>
-
+              <%= order.total_payment %>
             </td>
             <td>
-
+              <% case order.order_status when 0 %>
+                <span>入金待ち</span>
+              <% when 1 %>
+                <span>入金確認</span>
+              <% when 2 %>
+                <span>製作中</span>
+              <% when 3 %>
+                <span>発送準備中</span>
+              <% when 4 %>
+                <span>発送済み</span>
+              <% end %>
             </td>
-            <td></td>
+            <td><%= link_to "表示する", order_path(order.id) %></td>
         </tr>
+        <% end %>
     </tbody>
 </table>

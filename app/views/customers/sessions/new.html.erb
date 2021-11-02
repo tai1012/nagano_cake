@@ -1,4 +1,5 @@
 <h2>ログイン</h2>
+<%= render 'layouts/notifications' %>
 <section>
   <h3>会員の方はこちらからログイン</h3>
   <%= form_with model:resource, url: session_path(resource_name), local:true do |f| %>

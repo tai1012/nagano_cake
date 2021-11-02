@@ -50,6 +50,9 @@ end
 end
 
 # order
+Order.create!(
+  shipping_fee: 800
+  )
 # Order.all.each do |order|
 # order.update(created_at: (rand*10).days.ago)
 # end

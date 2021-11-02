@@ -7,12 +7,13 @@ class Customers::OrdersController < ApplicationController
   def confirm
     @cart_items = current_customer.cart_items
     @sum = 0
-      @cart_items.each do |cart_item|
-        @subtotal = (Item.find(cart_item.item_id).taxed_price* cart_item.amount).to_i
-        @sum += @subtotal
+    @cart_items.each do |cart_item|
+      @subtotal = (Item.find(cart_item.item_id).taxed_price* cart_item.amount).to_i
+      @sum += @subtotal
     end
-    @total = 800 + @sum
-    @order = Order.new(order_params)
+    @order = current_customer.orders.new(order_params)
+    @order.shipping_fee = 800
+    @order.total_payment = @order.shipping_fee.to_i + @sum.to_i
     if params[:delivery_type] == "0"
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
@@ -29,24 +30,41 @@ class Customers::OrdersController < ApplicationController
         name: @order.name
       )
     end
-
   end
 
   def create
+    @order = Order.new(order_params)
+    if @order.save!
+      current_customer.cart_items.each do |cart_item|
+        @order_detail = OrderDetail.new(
+          order_id: @order.id,
+          item_id: cart_item.item_id,
+          price: cart_item.item.taxed_price,
+          amount: cart_item.amount
+          )
+      @order_detail.save
+      end
+
+      current_customer.cart_items.destroy_all
+    end
+    redirect_to orders_complete_path
   end
 
   def complete
   end
 
   def index
+    # @orders = Order.all
+    @orders = current_customer.orders
   end
 
   def show
+    @order = Order.find(params[:id])
+    # @order.shipping_fee = 800
   end
 
   private
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :delivary_type)
+    params.require(:order).permit(:order_id, :customer_id, :payment_method, :postal_code, :address, :name, :delivary_type, :total_payment, :shipping_fee)
   end
-
 end

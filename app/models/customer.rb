@@ -7,5 +7,10 @@ class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :cart_items, dependent: :destroy
   has_many :addresses, dependent: :destroy
-
+  
+  enum is_active:{"有効": true, "退会": false}
+  
+  def active_for_authentication?
+    super && self.is_active == "有効"
+  end
 end

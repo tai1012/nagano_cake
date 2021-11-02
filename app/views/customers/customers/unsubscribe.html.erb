@@ -2,9 +2,12 @@
   本当に退会しますか？<br/><br/>
   退会すると会員登録情報や<br/>
   これまでの購入履歴が閲覧できなくなります。<br/>
-  退会する場合ば、『退会する』をクリックしてください。
+  退会する場合ば、『退会する』をクリックしてください。<br/>
+  
+  退会後に再度登録していただく場合は、<br/>
+  お手数ですが、新規登録からよろしくお願いいたします。
 </div>
 <div>
-  <%= link_to "退会しない", customer_my_page_path %>
-  <%= link_to "退会する", customer_withdraw_path, method: :patch%>
+  <%= link_to "退会しない", customers_my_page_path %>
+  <%= link_to "退会する", customers_withdraw_path, method: :patch%>
 </div>

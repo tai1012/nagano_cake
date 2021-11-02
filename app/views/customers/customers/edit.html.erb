@@ -1,5 +1,5 @@
 <h2>会員情報編集</h2>
-<%= form_with model @customer, local¥:true do |f| %>
+<%= form_with model: @customer, url:(edit_customers_path), local:true do |f| %>
 <table>
   <tbody>
     <tr>
@@ -21,6 +21,6 @@
 
 <div>
   <%= f.submit "編集内容を保存" %>
-  <%= link_to "退会する", customer_withdraw_path %>
+  <%= link_to "退会する", customers_unsubscribe_path %>
 </div>
 <% end %>
