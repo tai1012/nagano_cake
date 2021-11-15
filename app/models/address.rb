@@ -1,6 +1,8 @@
 class Address < ApplicationRecord
   belongs_to :customer, optional: true
-  
+
+  # validates
+
   def full_address
     '〒' + postal_code + ' ' + address + ' ' + name
   end

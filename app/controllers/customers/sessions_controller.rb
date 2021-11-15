@@ -19,11 +19,13 @@ class Customers::SessionsController < Devise::SessionsController
   # end
 
   protected
+  # 追記
   def reject_user
-    @customer = Customer.find_by(email: params[:customer][:email].downcase)
-    if @customer
-      if (@customer.valid_password?(params[:customer][:password]) && (@customer.active_for_authentication? == false))
-        flash[:danger] = "退会済みです。"
+    customer = Customer.find_by(email: params[:customer][:email].downcase)
+    if customer
+      # binding.pry
+      if (customer.valid_password?(params[:customer][:password]) && (customer.active_for_authentication? == false))
+        flash[:error] = "退会済みです。お手数ですが再度アカウント作成をお願い致します。"
         redirect_to new_customer_session_path
       end
     else

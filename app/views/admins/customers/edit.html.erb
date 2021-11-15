@@ -1,44 +1,50 @@
-<h2><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h2>
+<h2 class="offset-md-2"><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h2>
 <%= form_with model:[:admins, @customer], local:true do |f| %>
-<div class="form-group">
-  <label>会員ID</label>
-  <div><%= @customer.id %></div>
+<div class="row">
+  <div class="m-5 col-md-6 offset-md-1">
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label>会員ID</label>
+      <div><%= @customer.id %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputName">氏名</label>
+      <div><%= f.text_field :first_name, autofocus: true %> <%= f.text_field :last_name, autofocus: true %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputNamekana">フリガナ</label>
+      <div><%= f.text_field :first_name_kana, autofocus: true %> <%= f.text_field :last_name_kana, autofocus: true %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputPostalcode">郵便番号</label>
+      <div><%= f.text_field :postal_code,autofocus: true %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputAddress">住所</label>
+      <div><%= f.text_field:address, autofocus: true, size:50 %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputTelephone_number">電話番号</label>
+      <div><%= f.text_field:telephone_number, autofocus: true %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputEmail">メールアドレス</label>
+      <div><%= f.text_field:email, autofocus: true %></div>
+    </div>
+    <div class="form-group offset-xs-1 col-xs-5">
+      <label for="inputStatus">会員ステータス</label>
+      <div>
+          <%= f.radio_button :is_active, true %>
+          <%= f.label :is_active, '有効', value: true %>
+
+          <%= f.radio_button :is_active, false %>
+          <%= f.label :is_active, '退会', value: false %>
+
+      </div>
+    </div>
 </div>
-<div class="form-group">
-  <label for="inputName">氏名</label>
-  <div><%= f.text_field :first_name, autofocus: true %> <%= f.text_field :last_name, autofocus: true %></div>
-</div>
-<div class="form-group">
-  <label for="inputNamekana">フリガナ</label>
-  <div><%= f.text_field :first_name_kana, autofocus: true %> <%= f.text_field :last_name_kana, autofocus: true %></div>
-</div>
-<div class="form-group">
-  <label for="inputPostalcode">郵便番号</label>
-  <div><%= f.text_field :postal_code,autofocus: true %></div>
-</div>
-<div class="form-group">
-  <label for="inputAddress">住所</label>
-  <div><%= f.text_field:address, autofocus: true, size:50 %></div>
-</div>
-<div class="form-group">
-  <label for="inputTelephone_number">電話番号</label>
-  <div><%= f.text_field:telephone_number, autofocus: true %></div>
-</div>
-<div class="form-group">
-  <label for="inputEmail">メールアドレス</label>
-  <div><%= f.text_field:email, autofocus: true %></div>
-</div>
-<div class="form-group">
-  <label for="inputStatus">会員ステータス</label>
-  <div>
-     <%= f.label :is_active, '有効', value: 1 %>
-      <%= f.radio_button :is_active, '1' %>
-      
-      <%= f.label :is_active, '無効', value: 0 %>
-      <%= f.radio_button :is_active, '0' %>
-  </div>
-</div>
-<div class="form-group">
-  <%= f.submit "変更を保存" %><!--class:"btn btn-success" %>-->
-</div>
+<div>
+<!--<div class="form-group">-->
+  <%= f.submit "変更を保存", class:"offset-md-1 btn btn-success" %>
+<!--</div>-->
 <% end %>
+</div>

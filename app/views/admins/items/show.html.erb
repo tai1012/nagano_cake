@@ -1,25 +1,41 @@
-<h2>商品詳細</h2>
-<div class="image"><%= attachment_image_tag @item, :image, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'250x200' %></div>
-<div class="form-group">
-  <label>商品名</label>
-  <div><%= @item.name %></div>
-</div>
-<div class="form-group">
-  <label>商品説明</label>
-  <div><%= @item.introduction %></div>
-</div>
-<div class="form-group">
-  <label>ジャンル</label>
-  <div><%= @item.genre.name %></div>
-</div>
-<div class="form-group">
-  <label>税込価格(税抜価格)</label>
-  <div><%= @item.taxed_price.floor %>(<%= @item.price %>)</div>
-</div>
-<div class="form-group">
-  <label>販売ステータス</label>
-  <div><%= @item.is_active ? '販売中' : '売り切れ' %></div>
-</div>
-<div>
-    <%= link_to "編集する", edit_admins_item_path(@item) %>
+<h2 class="offset-md-2 col-md-2">商品詳細</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 offset-md-1">
+      <div class="image"><%= attachment_image_tag @item, :image, format:'jpeg', fallback: "PAK57_ichigonocake_TP_V4 (1).jpg", size:'250x200' %></div>
+    </div>
+    <div class="col-md-3">
+      <form class="form-inline">
+        <div class="form-group mr-3">
+          <label for="Name">商品名</label>
+          <div class="form-control"><%= @item.name %></div>
+        </div>
+        <div class="form-group mr-3">
+          <label for="Introduction">商品説明</label>
+          <div class="form-control"><%= @item.introduction %></div>
+        </div>
+        <div class="form-group mr-3">
+          <label for="Genre">ジャンル</label>
+          <div class="form-control"><%= @item.genre.name %></div>
+        </div>
+        <div class="form-group mr-3">
+          <label for="Price">税込価格(税抜価格)</label>
+          <div class="form-control"><%= @item.taxed_price.floor %>(<%= @item.price %>)</div>
+        </div>
+        <div class="form-group mr-3">
+          <label for="Status">販売ステータス</label>
+          <div class="form-control">
+            <% case @item.is_active when true %>
+              <span class="text-success">販売中</span>
+            <% when false %>
+              <span class="text-danger">販売停止中</span>
+            <% end %>
+          </div>
+        </div>
+        <div>
+            <%= link_to "編集する", edit_admins_item_path(@item), class:"btn btn-primary" %>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

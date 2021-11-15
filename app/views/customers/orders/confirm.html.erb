@@ -1,4 +1,4 @@
-<h2>注文情報確認</h2>
+<<h2>注文情報確認</h2>
 <div>
   <table>
     <thead>
@@ -57,7 +57,7 @@
 </div>
 <%= form_with model: @order, url:(orders_path), method: :post, local:true do |f| %>
 <%= f.hidden_field :id, value: @order.id %>
-<%= f.hidden_field :customer_id, value: current_customer.id%>
+<%= f.hidden_field :customer_id, value: current_customer.id %>
 <%= f.hidden_field :shipping_fee, value: @order.shipping_fee %>
 <%= f.hidden_field :total_payment, value: @order.total_payment %>
 <%= f.hidden_field :postal_code, value: @order.postal_code %>

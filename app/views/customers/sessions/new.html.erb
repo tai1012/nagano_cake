@@ -1,14 +1,13 @@
-<h2>ログイン</h2>
-<%= render 'layouts/notifications' %>
+<h2 class="offset-md-2 col-md-2">ログイン</h2>
 <section>
-  <h3>会員の方はこちらからログイン</h3>
+  <h3 class="offset-md-3">会員の方はこちらからログイン</h3>
   <%= form_with model:resource, url: session_path(resource_name), local:true do |f| %>
-    <div class="field">
+    <div class="field offset-md-4">
       <%= f.label :email, "メールアドレス" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
 
-    <div class="field">
+    <div class="field offset-md-4">
       <%= f.label :password, "パスワード" %>
       <%= f.password_field :password, autocomplete: "current-password" %>
     </div>
@@ -19,17 +18,17 @@
   <!--  </div>-->
   <!--< % end %>-->
 
-    <div class="actions">
-      <%= f.submit "ログイン" %>
+    <div class="actions offset-md-5">
+      <%= f.submit "ログイン", class:"btn btn-primary" %>
     </div>
   <% end %>
 </section>
 
 <section>
-  <h3>
+  <h3 class="offset-md-3 mt-5">
     会員登録がお済みでない方
   </h3>
-  <div>
+  <div class="offset-md-4">
     <%= link_to "こちら", new_customer_registration_path %>から新規登録してください。
   </div>
 </section>

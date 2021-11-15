@@ -1,26 +1,42 @@
-<h2>会員一覧</h2>
-<table>
-  <thead>
-    <tr>
-      <td>会員ID</td>
-      <td>氏名</td>
-      <td>メールアドレス</td>
-      <td>ステータス</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @customers.each do |customer| %>
-    <tr>
-      <td><%= customer.id %></td>
-      <td>
-        <%= link_to admins_customer_path(customer) do %>
-        <%= customer.first_name %><%= customer.last_name %>
+<h2 class="offset-md-2 col-md-2">会員一覧</h2>
+<div class="row">
+  <div class="offset-md-3 ml-md-auto">
+    <table class="table text-white align-middle" style="width:50%">
+      <thead>
+        <tr>
+          <td scope="col">会員ID</td>
+          <td scope="col">氏名</td>
+          <td scope="col">メールアドレス</td>
+          <td scope="col">ステータス</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.each do |customer| %>
+        <tr>
+          <td scope="row"><%= customer.id %></td>
+          <td>
+            <%= link_to admins_customer_path(customer) do %>
+            <%= customer.first_name %><%= customer.last_name %>
+            <% end %>
+          </td>
+          <td><%= customer.email %></td>
+          <td>
+          <% case customer.is_active when true %>
+            <span class="text-success">有効</span>
+          <% when false %>
+            <span class="text-danger">退会</span>
+          <% end %>
+          </td>
+        </tr>
         <% end %>
-      </td>
-      <td><%= customer.email %></td>
-      <td><%= customer.is_active ? '有効':'無効' %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<!--ページネーション-->
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="text-center">
+    <div class="bg-dark" align="center">
+      <%= paginate @customers, class: "gaginate"%>
+    </div>
+  </div>
+</div>

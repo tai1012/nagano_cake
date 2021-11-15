@@ -1,27 +1,39 @@
-<h2>商品一覧</h2>
-<div class="add_items">
-  <%= link_to"＋", new_admins_item_path %>
+<h2 class="offset-md-2 col-md-2">商品一覧</h2>
+<div class="row">
+  <div class="col-md-1 offset-md-9 text-right">
+    <%= link_to"＋", new_admins_item_path, class: "btn btn-primary rounded-circle text-right ml-auto shadow-sm"%>
+  </div>
 </div>
-<table>
-  <thead>
-    <tr>
-      <td>商品ID</td>
-      <td>商品名</td>
-      <td>税抜価格</td>
-      <td>ジャンル</td>
-      <td>ステータス</td>　<!--０:販売中 1:販売停止中-->
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
-    <tr>
-      <td><%= item.id %></td>
-      <td><%= link_to item.name, admins_item_path(item) %></td>
-      <td><%= item.price %>円</td>
-      <td><%= item.genre.name %></td>
-      <td><%= item.is_active ? '販売中':'販売停止中' %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<!--ページネーション-->
+<div clqss="row">
+  <div class="offset-md-3 ml-md-auto">
+    <table class="table text-white align-middle" style="width:70%">
+      <thead>
+        <tr>
+          <td>商品ID</td>
+          <td>商品名</td>
+          <td>税抜価格</td>
+          <td>ジャンル</td>
+          <td>ステータス</td>　<!--０:販売中 1:販売停止中-->
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= link_to item.name, admins_item_path(item) %></td>
+          <td><%= item.price %>円</td>
+          <td><%= item.genre.name %></td>
+          <td>
+            <% case item.is_active when true %>
+              <span class="text-success">販売中</span>
+            <% when false %>
+              <span class="text-danger">販売停止中</span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="bg-dark" align="center"><%= paginate @items, class: "gaginate text-center"%></div>

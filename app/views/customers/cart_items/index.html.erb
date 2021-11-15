@@ -1,64 +1,76 @@
-<h2>ショッピングカート</h2>
-<%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete %>
-<table>
-  <thead>
-    <tr>
-      <td> </td>
-      <td>商品名</td>
-      <td>単価(税込)</td>
-      <td>数量</td>
-      <td>小計</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @cart_items.each do |cart_item| %>
-    <tr>
-      <td>
-        <%= link_to item_path(cart_item.item_id) do %>
-          <%= attachment_image_tag cart_item.item, :image, :fill, 60, 40, fallback:"PAK57_ichigonocake_TP_V4 (1).jpg", size: '60x40' %>
+<h2 class="offset-md-2">ショッピングカート</h2>
+<div class="container">
+  <div class="row">
+    <div class="offset-md-9 col-md-3">
+      <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete, class:"btn btn-danger" %>
+    </div
+    <div class="offset-md-2 col-md-8">
+      <table class="table table-borded text-white">
+        <thead>
+          <tr>
+            <td> </td>
+            <td>商品名</td>
+            <td>単価(税込)</td>
+            <td>数量</td>
+            <td>小計</td>
+            <td> </td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_items.each do |cart_item| %>
+          <tr>
+            <td>
+              <%= link_to item_path(cart_item.item_id) do %>
+                <%= attachment_image_tag cart_item.item, :image, :fill, 60, 40, fallback:"PAK57_ichigonocake_TP_V4 (1).jpg", size: '60x40' %>
+              <% end %>
+            </td>
+            <td>
+              <%= cart_item.item.name %>
+            </td>
+            <td>
+              <%= cart_item.item.taxed_price.to_s(:delimited)%>
+            </td>
+            <td>
+              <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch, local:true do |f| %>
+              <!--< %= f.label :amount %>-->
+              <%= f.select :amount, *[1..10].to_a %>
+              <%= f.submit "変更", class:"btn btn-success" %>
+              <% end %>
+            </td>
+            <td>
+              <%= (cart_item.item.taxed_price * cart_item.amount).to_s(:delimited) %>
+            </td>
+            <td>
+              <%= link_to "削除する", cart_item_path(cart_item.id), method: :delete, class:"btn btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="offset-md-1">
+        <%= link_to "買い物を続ける", items_path, class:"btn btn-primary" %>
+      </div>
+    </div>
+    <div class="offset-md-8 col-md-2 offset-md-2">
+      <table class="table table-borded text-white">
+        <tbody>
+          <tr>
+            <th>合計金額</th>
+            <td><%= @sum %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="offset-md-5">
+      <div class="text-start">
+        <% if current_customer.cart_items.present? %>
+          <%= link_to "情報入力に進む", new_order_path, class:"btn btn-success" %>
+        <% else %>
+          <%= link_to "登録済みのお届け先の確認", addresses_path, class:"btn btn-primary" %>
         <% end %>
-      </td>
-      <td>
-        <%= cart_item.item.name %>
-      </td>
-      <td>
-        <%= cart_item.item.taxed_price.to_s(:delimited)%>
-      </td>
-      <td>
-        <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch, local:true do |f| %>
-        <!--< %= f.label :amount %>-->
-        <%= f.select :amount, *[1..10].to_a %>
-        <%= f.submit "変更" %>
-        <% end %>
-      </td>
-      <td>
-        <%= (cart_item.item.taxed_price * cart_item.amount).to_s(:delimited) %>
-      </td>
-      <td>
-        <%= link_to "削除する", cart_item_path(cart_item.id), method: :delete %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<div>
-  <%= link_to "買い物を続ける", items_path %>
-</div>
-
-<table>
-  <tbody>
-    <tr>
-      <th>合計金額</th>
-      <td><%= @sum %></td>
-    </tr>
-  </tbody>
-</table>
-<div>
-  <% if current_customer.cart_items.present? %>
-    <%= link_to "情報入力に進む", new_order_path %>
-  <% else %>
-    <%= link_to "登録済みのお届け先の確認", addresses_path %>
-  <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!--情報入力-->

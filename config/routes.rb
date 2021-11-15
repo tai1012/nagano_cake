@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root to: "customers/homes#top"
   get "/about" => "customers/homes#about"
   resources :homes, only:[:top, :about]
-
   scope module: "customers" do
     resources :items, only:[:index, :show]
     resource :customers, only:[:edit, :update]
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
     resources :orders, only:[:index, :show, :update]
     resources :order_details, only:[:update]
   end
-  
+
   devise_for :customers, controllers: {
     sessions:      'customers/sessions',
     passwords:     'customers/passwords',
