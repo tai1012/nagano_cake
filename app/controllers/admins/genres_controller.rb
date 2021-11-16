@@ -10,6 +10,7 @@ class Admins::GenresController < ApplicationController
       flash[:notice] = "新しいジャンルを登録しました"
       redirect_to admins_genres_path
     else
+      flash[:error] = "入力してください"
       render :index
     end
   end
@@ -24,6 +25,7 @@ class Admins::GenresController < ApplicationController
       flash[:notice] = "ジャンル名を変更しました。"
       redirect_to admins_genres_path
     else
+      flash[:error] = "変更できません"
       render :edit
     end
   end

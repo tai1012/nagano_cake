@@ -1,6 +1,7 @@
 class Address < ApplicationRecord
   belongs_to :customer, optional: true
-
+  validates :address, presence: true
+  validates :postal_code, presence: true, format: {with: /\A\d{7}\z/}
   # validates
 
   def full_address

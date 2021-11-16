@@ -7,8 +7,12 @@ class Customers::AddressesController < ApplicationController
 
   def create
     @address = current_customer.addresses.new(address_params)
-    @address.save
-    redirect_to addresses_path, notice: "配送先を登録しました。"
+    if @address.save
+      redirect_to addresses_path, notice: "配送先を登録しました。"
+    else
+      flash[:error] = "未入力です"
+      render :index
+    end
   end
 
   def edit
